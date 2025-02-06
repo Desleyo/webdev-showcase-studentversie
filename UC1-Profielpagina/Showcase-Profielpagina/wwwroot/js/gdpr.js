@@ -5,22 +5,27 @@ class GDPR {
         this.showContent();
         this.bindEvents();
 
-        if(this.cookieStatus() !== 'accept') this.showGDPR();
+        if (this.cookieStatus() == null) this.showGDPR();
     }
 
     bindEvents() {
         let buttonAccept = document.querySelector('.gdpr-consent__button--accept');
         buttonAccept.addEventListener('click', () => {
-            this.cookieStatus('accept');
-            this.showStatus();
-            this.showContent();
-            this.hideGDPR();
+            this.gdprSubmitted('accept')
         });
 
+        //student uitwerking
+        let buttonReject = document.querySelector('.gdpr-consent__button--reject');
+        buttonReject.addEventListener('click', () => {
+            this.gdprSubmitted('reject')
+        });
+    }
 
-//student uitwerking
-
-
+    gdprSubmitted(status) {
+        this.cookieStatus(status);
+        this.showStatus();
+        this.showContent();
+        this.hideGDPR();
     }
 
     showContent() {
