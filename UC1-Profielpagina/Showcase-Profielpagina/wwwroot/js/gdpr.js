@@ -57,22 +57,29 @@ class GDPR {
 
     cookieStatus(status) {
 
-        if (status) localStorage.setItem('gdpr-consent-choice', status);
+        if (status) {
+            localStorage.setItem('gdpr-consent-choice', status);
+            this.saveMetadata();
+        }
 
 //student uitwerking
 
         return localStorage.getItem('gdpr-consent-choice');
     }
 
-//student uitwerking
+    //student uitwerking
+    saveMetadata() {
+        let metadata = { date: '6-2-2024', time: '12:00' };
+        let result = JSON.stringify(metadata);
+        localStorage.setItem('metadata', result);
+    }
 
-
-    hideGDPR(){
+    hideGDPR() {
         document.querySelector(`.gdpr-consent`).classList.add('hide');
         document.querySelector(`.gdpr-consent`).classList.remove('show');
     }
 
-    showGDPR(){
+    showGDPR() {
         document.querySelector(`.gdpr-consent`).classList.add('show');
     }
 
