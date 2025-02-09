@@ -51,6 +51,10 @@
     display: none;
 }
 
+.profile-content__list--item {
+    font-size: 15px;
+}
+
 .profile-content__title {
     font-weight: bold;
     font-size: 18px;
