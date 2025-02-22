@@ -3,6 +3,10 @@
     ViewData["Title"] = "Contactpagina";
 }
 
+<head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
 <div class="page">
     <section class="contact">
 
@@ -24,6 +28,8 @@
                 <label for="message">Bericht: </label>
                 <textarea asp-for="Message" name="message" id="message" rows="5" cols="40" required></textarea>
             </div>
+
+            <div class="g-recaptcha" data-sitekey="6LeYat8qAAAAAIjpYU-Yf9w1zoETvncsMjEi-skA"></div>
 
             <div class="form-contactpagina__inputelement">
                 <input type="submit" value="Verstuur!">
@@ -53,8 +59,16 @@
         }
     }
 
+    const validateCaptcha = () => {
+        const captchaResponse = grecaptcha.getResponse();
+        if(!captchaResponse.length > 0) {
+            throw new Error("Captcha not complete");
+        }
+    }
+
     const validateForm = () => {
         validateEmail();
+        validateCaptcha();
     }
 
     // Event listener voor email
