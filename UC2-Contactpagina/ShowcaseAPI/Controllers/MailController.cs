@@ -15,7 +15,6 @@ namespace ShowcaseAPI.Controllers
         [HttpPost]
         public ActionResult Post([Bind("Email, Subject, Message")] Contactform form)
         {
-            Console.WriteLine("reached again");
             //Op brightspace staan instructies over hoe je de mailfunctionaliteit werkend kunt maken:
             //Project Web Development > De showcase > Week 2: contactpagina (UC2) > Hoe verstuur je een mail vanuit je webapplicatie met Mailtrap?
             // Looking to send emails in production? Check out our Email API/SMTP product!

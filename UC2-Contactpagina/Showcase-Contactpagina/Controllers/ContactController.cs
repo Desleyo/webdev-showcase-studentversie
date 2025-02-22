@@ -31,8 +31,6 @@ namespace Showcase_Contactpagina.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(Contactform form)
         {
-            Console.WriteLine("reached");
-
             if(!ModelState.IsValid)
             {
                 ViewBag.Message = "De ingevulde velden voldoen niet aan de gestelde voorwaarden";
@@ -54,8 +52,6 @@ namespace Showcase_Contactpagina.Controllers
             //      nadat je een account hebt aangemaakt op Mailtrap (of een alternatief).
 
             var response = await _httpClient.PostAsync("api/Mail", content);
-
-            Debug.WriteLine("awaited");
 
             if(!response.IsSuccessStatusCode)
             {
