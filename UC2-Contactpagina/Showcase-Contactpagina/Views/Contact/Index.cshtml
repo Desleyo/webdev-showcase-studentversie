@@ -74,8 +74,29 @@
             body: params,
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => validateCaptcha(data))
         .catch(err => console.error(err))
+    }
+
+    const validateCaptcha = (req) => {
+        const parameters = new URLSearchParams({
+            secret: '6LeYat8qAAAAACqswrDbZx59LTX-jcSzuQo83dZ3',
+            response: req.form['g-recaptcha-response'],
+            remoteip: req.remoteip,
+         })
+
+        fetch('https://www.google.com/recaptcha/api/siteverify', {
+            method: "POST",
+            body: parameters,
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                res.json({ captchaSucces: true })
+            } else {
+                res.json({ captchaSucces: false })
+            }
+        })
     }
 
     const validateForm = (e) => {
