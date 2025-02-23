@@ -59,16 +59,28 @@
         }
     }
 
-    const validateCaptcha = () => {
+    const checkCaptcha = (e) => {
+        //Get the captcha response and make sure it has more than zero characters
         const captchaResponse = grecaptcha.getResponse();
         if(!captchaResponse.length > 0) {
             throw new Error("Captcha not complete");
         }
+
+        //Log the received data from the httpbin
+        const fd = new FormData(e.target);
+        const params = new URLSearchParams(fd);
+        fetch('https://httpbin.org/post', {
+            method: 'POST',
+            body: params,
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.error(err))
     }
 
-    const validateForm = () => {
+    const validateForm = (e) => {
         validateEmail();
-        validateCaptcha();
+        checkCaptcha(e);
     }
 
     // Event listener voor email
@@ -84,7 +96,7 @@
         event.preventDefault(); // Voorkom standaard formulierinzending
 
        // Valideer alle velden voor de zekerheid
-        validateForm();
+        validateForm(event);
 
         // Verkrijg CSRF-token van het formulier
         const csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
